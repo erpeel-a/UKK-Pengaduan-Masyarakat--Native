@@ -6,7 +6,7 @@ if(!isset($_SESSION['login'])){
   header('location:../../index.php');
   exit;
 }
-$masyarakat = FetchAllData("SELECT * FROM petugas");
+$petugas = FetchAllData("SELECT * FROM petugas");
 require('../layouts/header.php');
 ?>
 <div class="container-fluid ">
@@ -25,7 +25,7 @@ require('../layouts/header.php');
               </tr>
             </thead>
             <tbody>
-              <?php foreach($masyarakat as $data) : ;?>
+              <?php foreach($petugas as $data) : ;?>
               <tr>
                 <td><?= $data['nama_petugas'];?></td>
                 <td><?= $data['username'];?></td>

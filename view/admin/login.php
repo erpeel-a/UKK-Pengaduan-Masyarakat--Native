@@ -18,10 +18,7 @@ $conn = DBConnection();
         }
     }
     $error = true;
-  }else if(isset($_POST['regist'])){
-     header('location:../registrasi.php');
   }
-
 require('../layouts/header.php')
 ?>
 <div class="container mt-5">

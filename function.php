@@ -48,7 +48,7 @@ function PetugasRegister($data){
   }
   // Insert ke dalam database
   $execute = mysqli_query($conn,"INSERT INTO petugas VALUES(null,'$namapetugas','$username','$password','$telp','$level')") or die(mysqli_error($conn));
-  header('location:index.php'); // alihkan ke index page
+  return mysqli_affected_rows($conn);
 
 }
 
@@ -72,8 +72,7 @@ function MasyarakatRegister($data){
     echo "<script> alert('Kombinasi password tidak sama, silahkan coba lagi')</script>";
   }
   $execute = mysqli_query($conn,"INSERT INTO masyarakat(nik,nama,username,password,telp) VALUES('$nik','$nama','$username','$password','$telephone')"); // melakukan query ke database
-  header('location:index.php'); // alihkan ke index page
-
+  return mysqli_affected_rows($conn);
 }
 
 
@@ -88,10 +87,7 @@ function InputPengaduan($nik,$data){
   $status = '0';
   $gambar = upload(); // panggil fungsi upload()
   mysqli_query($conn,"INSERT INTO pengaduan(tgl_pengaduan,nik,isi_laporan,foto,status) VALUES('$tanggal','$nik','$isi','$gambar','$status')"); // melakukan query insert ke database
-  echo "<script> 
-    alert('Data Pengaduan berhasil di kirim');
-  window.location.reload()
-  </script>";
+  return mysqli_affected_rows($conn);
   // tampilakn alert dan reload halaman
 }
 

@@ -8,7 +8,6 @@ if(!isset($_SESSION['login'])){
 }
 if(isset($_POST['verify'])){
   $idpengaduan = $_POST['verify'];
-  var_dump($idpengaduan);
   $_SESSION['idpengaduan'] = $idpengaduan;
   $cek = mysqli_query($conn, "UPDATE pengaduan SET status ='proses' WHERE id_pengaduan='$idpengaduan'") or die(mysqli_error($conn));
   header('location:tanggapan.php');

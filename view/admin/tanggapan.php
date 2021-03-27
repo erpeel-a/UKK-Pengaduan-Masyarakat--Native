@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
   }else{
     echo "
     <script>
-     alert('tanggapan gagal dikitim');
+     alert('tanggapan gagal dikirim');
     </script>
     ";
   }

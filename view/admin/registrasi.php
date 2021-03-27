@@ -1,10 +1,11 @@
 <?php
 require '../../function.php';
+$conn = DBConnection();
 if(isset($_POST['submit'])){
   if(PetugasRegister($_POST) > 0){
-    echo "<script>
+    echo "<scrip;;>
       alert('Data Petugas Berhasil ditambahkan ke database');
-    </script>";
+    </scrip;;>";
   }else{
     echo mysqli_error($conn);
   }
@@ -32,7 +33,7 @@ if(isset($_POST['submit'])){
             </div>
             <div class="form-group">
               <label for="telephone" class="sr-only">Telephone</label>
-              <input type="text" id="telephone" class="form-control" placeholder="08xxxxxxxx." required name="telephone"
+              <input type="number" id="telephone" class="form-control" placeholder="08xxxxxxxx."  required name="telephone"
                 autofocus>
             </div>
             <div class="form-group">

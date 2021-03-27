@@ -17,7 +17,7 @@ require('../layouts/header.php');
       <div class="card">
         <div class="card-header">
           Buat pengaduan
-        </div>
+        </div>  
         <div class="card-body">
           <form action="" class="form-group" method="post" enctype="multipart/form-data">
             <label for="isi laporan">Isi Laporan</label>

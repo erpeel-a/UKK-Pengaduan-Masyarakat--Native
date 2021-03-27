@@ -9,7 +9,7 @@ $conn = DBConnection();
   if($_SESSION['level'] != 'admin'){
     header('location:login.php');
   }
-$pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas")
+$pengaduan = FetchAllData("SELECT *  FROM tanggapan T1 INNER JOIN pengaduan P1 ON T1.id_pengaduan=P1.id_pengaduan INNER JOIN petugas P2 ON P2.id_petugas=T1.id_petugas")
 ?>
 <?php require('../layouts/header.php')  ?>
 <div class="container-fluid">
@@ -36,9 +36,9 @@ $pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tangg
                 <?php foreach($pengaduan as $data) : ?>
                 <tr>
                   <td><?= $data['isi_laporan'];?></td>
-                  <td><?= $data['tanggapan'];?></td>
-                  <td><img src="../../img/<?= $data['foto'] ;?>" width="200px" alt=""></td>
                   <td><?= $data['tgl_pengaduan'];?></td>
+                  <td><img src="<?= site_url ?>/img/<?= $data['foto'] ;?>" width="200px" alt=""></td>
+                  <td><?= $data['tgl_tanggapan'];?></td>
                   <td><?= $data['tanggapan'];?></td>
 
                 </tr>
