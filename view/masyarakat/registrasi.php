@@ -29,11 +29,10 @@ require('../layouts/header.php');
             </div>
             <div class="form-group">
               <label for="nik" class="sr-only">nik</label>
-              <input type="number" id="nama" class="form-control" placeholder="NIK"  name="nik" required autofocus>
-            </div>
+              <input type="number" id="nama" class="form-control" placeholder="NIK" name="nik" required autofocus>
             <div class="form-group">
               <label for="telephone" class="sr-only">telp</label>
-              <input type="number" id="telephone" class="form-control" placeholder="08xxxxxxx" max="14" required name="telephone"
+              <input type="number" id="telephone" class="form-control" placeholder="08xxxxxxx" required name="telephone"
                 autofocus>
             </div>
             <div class="form-group">
