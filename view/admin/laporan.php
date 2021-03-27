@@ -20,35 +20,35 @@ $pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tangg
           Cetak Laporan
         </div>
         <div class="card-body">
-        <a href="generate_report.php" class="btn btn-primary my-2 float-right">Cetak </a>
+          <a href="generate_report.php" class="btn btn-primary my-2 float-right">Cetak </a>
           <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead class="bg-dark text-white ">
-              <tr>
-                <th>Pengaduan</th>
-                <th>tanggal pengaduan</th>
-                <th>foto</th>
-                <th>tgl_tanggapan</th>
-                <th>Tanggapan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach($pengaduan as $data) : ?>
-              <tr>
-                <td><?= $data['isi_laporan'];?></td>
-                <td><?= $data['tanggapan'];?></td>
-                <td><img src="../../img/<?= $data['foto'] ;?>" width="200px" alt=""></td>
-                <td><?= $data['tgl_pengaduan'];?></td>
-                <td><?= $data['tanggapan'];?></td>
-               
-              </tr>
-              <?php endforeach ;?>
-            </tbody>
-          </table>
+            <table class="table table-bordered">
+              <thead class="bg-dark text-white ">
+                <tr>
+                  <th>Pengaduan</th>
+                  <th>tanggal pengaduan</th>
+                  <th>foto</th>
+                  <th>tgl_tanggapan</th>
+                  <th>Tanggapan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($pengaduan as $data) : ?>
+                <tr>
+                  <td><?= $data['isi_laporan'];?></td>
+                  <td><?= $data['tanggapan'];?></td>
+                  <td><img src="../../img/<?= $data['foto'] ;?>" width="200px" alt=""></td>
+                  <td><?= $data['tgl_pengaduan'];?></td>
+                  <td><?= $data['tanggapan'];?></td>
+
+                </tr>
+                <?php endforeach ;?>
+              </tbody>
+            </table>
           </div>
           <a href="index.php" class="btn btn-danger">kembali</a>
         </div>
       </div>
     </div>
   </div>
-<?php require('../layouts/footer.php')  ?>
+  <?php require('../layouts/footer.php')  ?>

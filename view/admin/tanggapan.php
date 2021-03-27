@@ -34,25 +34,27 @@ if(isset($_POST['submit'])){
 }
 require('../layouts/header.php');
 ?>
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div  class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2>Tulis Tanggapan</h2>
+    <div class="col-md-10 mt-5">
+      <div class="card">
+        <div class="card-header">Tulis Tanggapan</div>
+        <div class="card-body">
+          <form action="" class="form " method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="judul_pengaduan">Isi Pengaduan</label>
+              <input type="text" readonly name="tanggal" class="form-control mb-3"
+                value="<?= $pengaduan[0]['isi_laporan'] ?>">
+            </div>
+            <div class="form-group">Tanggapan
+              <label for="tanggapan"></label>
+              <textarea name="tanggapan" id="" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Kirim Tanggapan</button>
+            <a href="index.php" class="btn btn-danger">Kembali</a>
+          </form>
+        </div>
       </div>
-      <form action="" class="form " method="post" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="judul_pengaduan">Isi Pengaduan</label>
-          <input type="text" readonly name="tanggal" class="form-control mb-3" value="<?= $pengaduan[0]['isi_laporan'] ?>">
-        </div>
-        <div class="form-group">Tanggapan
-          <label for="tanggapan"></label>
-          <textarea name="tanggapan" id="" cols="30" rows="10" class="form-control"></textarea>
-        </div>
-        <button type="submit" name="submit" class="btn btn-primary">Kirim Tanggapan</button>
-        <a href="index.php" class="btn btn-danger">Kembali</a>
-      </form>
     </div>
   </div>
 </div>

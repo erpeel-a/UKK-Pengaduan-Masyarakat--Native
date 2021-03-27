@@ -27,10 +27,10 @@ require('../layouts/header.php')
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-    <?php if(isset($error)):?>
-    <div class="alert alert-danger">username atau password anda salah</div>
-    <?php endif ;?>
-    <div class="card-header">Login <strong>Petugas</strong></div>
+      <?php if(isset($error)):?>
+      <div class="alert alert-danger">username atau password anda salah</div>
+      <?php endif ;?>
+      <div class="card-header">Login <strong>Petugas</strong></div>
       <div class="card">
         <div class="card-body">
           <form class="form-group" method="post" action="">

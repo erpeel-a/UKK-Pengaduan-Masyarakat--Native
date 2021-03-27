@@ -13,18 +13,16 @@ $pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tangg
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Report</title>
 	<link href="<?= site_url ?>/assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <style>
-	@media print{
+	@media print {
 		.btn-danger {
-			display:none;
+			display: none;
 		}
 	}
 </style>
@@ -53,8 +51,8 @@ $pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tangg
 						</tr>
 					</thead>
 					<tbody>
-					<?php $i = 1 ?>
-					<?php foreach($pengaduan as $item){ ?>
+						<?php $i = 1 ?>
+						<?php foreach($pengaduan as $item){ ?>
 						<tr>
 							<td><?= $i++;?></td>
 							<td><?= $item['nama'] ; ?></td>
@@ -68,7 +66,7 @@ $pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tangg
 						<?php } ?>
 					</tbody>
 				</table>
-					<a href="index.php" class="btn btn-danger">kembali</a>
+				<a href="index.php" class="btn btn-danger">kembali</a>
 			</div>
 		</div>
 	</div>
@@ -76,4 +74,5 @@ $pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tangg
 		window.print();
 	</script>
 </body>
+
 </html>

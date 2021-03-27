@@ -36,7 +36,6 @@ function PetugasRegister($data){
     echo "<script>alert('akun sudah terdaftar')</script>"; // tampilkan alert
     return false; // return false 
   }
-   
   if($password != $konfirmasi_password){ // Check jika password dan konfirmasi password tidak sesuai
     echo
     "

@@ -42,6 +42,7 @@ require('view/layouts/header.php')
             <div class="form-group">
               <button class="btn  btn-primary" type="submit" name="submit">Login</button>
               <a class="btn  btn-danger float-right" href="view/admin/login.php">Login Sebagai Petugas</a>
+              <a href="view/masyarakat/registrasi.php" class="nav-link d-inline">Belum punya akun</a>
             </div>
           </form>
         </div>
