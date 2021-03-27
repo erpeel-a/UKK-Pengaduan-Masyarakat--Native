@@ -1,7 +1,11 @@
 
 <?php
   session_start();
- require('../layouts/header.php')  
+  if(!isset($_SESSION['login'])){
+    header('location:../../index.php');
+    exit;
+  }
+ require('../layouts/header.php');
  ?>
 <div class="container-fluid">
   <div class="row justify-content-center">
