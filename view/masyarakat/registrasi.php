@@ -5,12 +5,11 @@ if(isset($_POST['submit'])){
   if(MasyarakatRegister($_POST) > 0 ){
      echo "<script>alert('Registrasi berhasil, silahkan login')</script>";
   }else{
-    echo '<script>alert('.mysqli_error($conn).')</script>';
+    echo mysqli_error($conn);
   }
 }
 require('../layouts/header.php');
 ?>
-
 <div class="container">
   <div class="row">
     <div class="col-md-10 mt-3">
