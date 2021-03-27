@@ -1,17 +1,14 @@
 <?php
 require '../../function.php';
-
-
 if(isset($_POST['submit'])){
-  if(registrasi($_POST) > 0){
+  if(PetugasRegister($_POST) > 0){
     echo "<script>
-      alert('user berhasil ditambahkan');
+      alert('Data Petugas Berhasil ditambahkan ke database');
     </script>";
   }else{
     echo mysqli_error($conn);
   }
 }
-
 ?>
 <?php require('../layouts/header.php') ?>
   <div class="container mt-5">
@@ -19,7 +16,7 @@ if(isset($_POST['submit'])){
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            Registrasi
+            Registrasi Petugas
           </div>
           <div class="card-body">
             <form class="form-group" method="post" action="">
@@ -51,8 +48,8 @@ if(isset($_POST['submit'])){
               </div>
               <div class="form-group">
                 <label for="inputPassword" class="sr-only">Konfirmasi Pasword</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password entry"
-                  name="passwords" required>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Konfirmasi Password"
+                  name="konfirmasi_password" required>
               </div>
               <button class="btn btn-primary" type="submit" name="submit">Register</button>
               <a class="btn btn-danger" href="index.php">kembali</a>

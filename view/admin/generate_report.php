@@ -2,22 +2,15 @@
 session_start();
 require('../../function.php');
 $conn = DBConnection();
-
-  //cek sesi
   if(!isset($_SESSION['login'])){
     header('location:login.php');
     exit;
   }
-  //cek level 
   if($_SESSION['level'] != 'admin'){
     header('location:login.php');
   }
-
-$query = "SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas INNER JOIN masyarakat ON pengaduan.nik=masyarakat.nik";
-$execute = mysqli_query($conn,$query);
-$Pengaduan = mysqli_fetch_All($execute,MYSQLI_ASSOC);
+$pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas INNER JOIN masyarakat ON pengaduan.nik=masyarakat.nik");
 ?>
-<?php  $site_url = 'http://localhost/UKK-Pengaduan-Masyarakat--Native/'  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +18,7 @@ $Pengaduan = mysqli_fetch_All($execute,MYSQLI_ASSOC);
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Report</title>
-	<link href="<?= $site_url ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?= site_url ?>/assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <style>
@@ -35,7 +28,6 @@ $Pengaduan = mysqli_fetch_All($execute,MYSQLI_ASSOC);
 		}
 	}
 </style>
-
 <body>
 	<div class="container mt-5">
 		<div class="row mt-5">
@@ -62,7 +54,7 @@ $Pengaduan = mysqli_fetch_All($execute,MYSQLI_ASSOC);
 					</thead>
 					<tbody>
 					<?php $i = 1 ?>
-					<?php foreach($Pengaduan as $item){ ?>
+					<?php foreach($pengaduan as $item){ ?>
 						<tr>
 							<td><?= $i++;?></td>
 							<td><?= $item['nama'] ; ?></td>
@@ -70,7 +62,7 @@ $Pengaduan = mysqli_fetch_All($execute,MYSQLI_ASSOC);
 							<td><?= $item['tgl_pengaduan'] ?></td>
 							<td><?= $item['tgl_tanggapan'] ?></td>
 							<td><?= $item['isi_laporan'] ;?></td>
-							<td><img src="<?= $site_url ?>/img/<?= $item['foto'] ;?>" width="100px" alt=""></td>
+							<td><img src="<?= site_url ?>/img/<?= $item['foto'] ;?>" width="100px" alt=""></td>
 							<td><?= $item['tanggapan'] ;?></td>
 						</tr>
 						<?php } ?>
@@ -84,5 +76,4 @@ $Pengaduan = mysqli_fetch_All($execute,MYSQLI_ASSOC);
 		window.print();
 	</script>
 </body>
-
 </html>

@@ -1,124 +1,132 @@
 <?php
 
+// mendefinisikan konstanta site url digunakan untuk meng-load asset (image, css, atau file js)
+define('site_url', 'http://localhost/UKK-Pengaduan-Masyarakat--Native/'); // alamat web, ganti sesuai alamat web masing-masing
 
+// fungsi yang di gunakan untuk membuat koneksi ke database
 function DBConnection(){
-  return mysqli_connect('localhost','root','','db_pengaduan_masyarakat');
+  return mysqli_connect('localhost','root','','pengaduan_masyarakat');
 }
 
-function registrasi($data){
-  $conn = DBConnection();
+// fungsi yang digunakan  untuk menampikan data sesuai query yang dikirim kan sebagai parameter
+function FetchAllData($query)
+{
+  $conn = DBConnection(); // memanggil fungsi DBConnection dan masukkan ke dalam variable $conn
+  $query = mysqli_query($conn, $query); // masukkan variable $conn, dan paramenter $query ke dalam fungsi mysqli_query
+  $rows = []; // menyiapkan varible bertipe array kosong
+  while ($row = mysqli_fetch_assoc($query)) { // looping hasil query dan di ubah menjadi array assosicative dan masukkan ke dalam folder row
+    $rows[] = $row; // masukkan data dari varible $row dan masukkan ke dalam varible $rows (yang berisi array kosong)
+  }
+  return $rows; // kembalikan data yang sudah masuh ke variable $rows
+}
 
+function PetugasRegister($data){
+  $conn = DBConnection(); // memanggil fungsi DBConnection dan masukkan ke dalam variable $conn
+  // tangkap input user yang dikirimkan sebagai parameter function
+  // htmlspecialchars berfungsi untuk menyeleksi inputkan user agar user tidak sembarangan menginputkan data
   $namapetugas = htmlspecialchars($data['namapetugas']);
   $username =htmlspecialchars($data['username']);
   $level = htmlspecialchars($data['level']);
   $telp = htmlspecialchars($data['telephone']);
   $password =htmlspecialchars($data['password']);
-  $passwords = htmlspecialchars($data['passwords']);
-  
-  // cek akun
-  $ceking = mysqli_query($conn,"SELECT * FROM petugas WHERE username='$username'");
-  if(mysqli_fetch_All($ceking)){
-    echo "<script>alert('akun sudah terdaftar')</script>";
-    return false;
+  $konfirmasi_password = htmlspecialchars($data['konfirmasi_password']);
+ // melakukan query ke database , untuk mengecek apakah username yang di inputkan sudah terdaftar
+  $check = mysqli_query($conn,"SELECT * FROM petugas WHERE username='$username'")or die(mysqli_error($conn));
+  if(mysqli_fetch_All($check)){ // check jika user sudah ada / terdaftar
+    echo "<script>alert('akun sudah terdaftar')</script>"; // tampilkan alert
+    return false; // return false 
   }
-
-
-  // cek password 
-  if($password != $passwords){
+   
+  if($password != $konfirmasi_password){ // Check jika password dan konfirmasi password tidak sesuai
     echo
     "
     <script>
-    alert('cek for password');
+    alert('Kombinasi Password Tidak Sesuai, Silahkan coba lagi');
     </script>
     ";
+    // tampilaknn alert
     return false;
   }
-
-  // enkripsi password
-  $sql = "INSERT INTO petugas VALUES('','$namapetugas','$username','$password','$telp','$level')";
-  $execute = mysqli_query($conn,$sql);
-  header('location:index.php');
+  // Insert ke dalam database
+  $execute = mysqli_query($conn,"INSERT INTO petugas VALUES(null,'$namapetugas','$username','$password','$telp','$level')") or die(mysqli_error($conn));
+  header('location:index.php'); // alihkan ke index page
 
 }
 
-function daftar($data){
-  $conn = DBConnection();
-  $nik = $data['nik'];
-  $nama = $data['nama'];
-  $username = $data['username'];
-  $telephone = $data['telephone'];
-  $password = $data['password'];
-  $password2 = $data['password2'];
-
+function MasyarakatRegister($data){
+  $conn = DBConnection(); // memanggil fungsi DBConnection dan masukkan ke dalam variable $conn
+   // tangkap input user yang dikirimkan sebagai parameter function
+  // htmlspecialchars berfungsi untuk menyeleksi inputkan user agar user tidak sembarangan menginputkan data
+  $nik = htmlspecialchars($data['nik']);
+  $nama = htmlspecialchars($data['nama']);
+  $username = htmlspecialchars($data['nama']);
+  $telephone = htmlspecialchars($data['telephone']);
+  $password = htmlspecialchars($data['password']);
+  $password2 = htmlspecialchars($data['konfirmasi_password']);
+  // melakukan query ke database , untuk mengecek apakah username yang di inputkan sudah terdaftar
   $check = mysqli_query($conn,"SELECT * FROM masyarakat WHERE username ='$username' ");
-  if(mysqli_fetch_All($check)){
-    echo "<script> alert('akun telah terdaftar');</script>";
+  if(mysqli_fetch_All($check)){ // check apakah username sudah terdaftar
+    echo "<script> alert('akun telah terdaftar');</script>"; // tampilakn alert
     return false;
   }
-
-  if($password != $password2){
-    echo "<script> alert('password tidak sama')</script>";
+  if($password != $password2){ // Check jika password dan konfirmasi password tidak sesuai
+    echo "<script> alert('Kombinasi password tidak sama, silahkan coba lagi')</script>";
   }
-  $sql ="INSERT INTO masyarakat(nik,nama,username,password,telp) VALUES('$nik','$nama','$username','$password','$telephone')";
-  $execute = mysqli_query($conn,$sql);
-  
-  header('location:index.php  ');
+  $execute = mysqli_query($conn,"INSERT INTO masyarakat(nik,nama,username,password,telp) VALUES('$nik','$nama','$username','$password','$telephone')"); // melakukan query ke database
+  header('location:index.php'); // alihkan ke index page
 
 }
 
 
 
-function tanggapan($nik,$data){
-  $conn = DBConnection();
+function InputPengaduan($nik,$data){
+  $conn = DBConnection();  // memanggil fungsi DBConnection dan masukkan ke dalam variable $conn
+  // menyiapkan data yang sudah di input user, dan ditanggap sebagai paramater fungsi
+  // htmlspecialchars berfungsi untuk menyeleksi inputkan user agar user tidak sembarangan menginputkan data
   $nik = $nik;
   $tanggal = date('Y-m-d');
-  $isi = $data['isi'];
+  $isi = htmlspecialchars($data['isi']);
   $status = '0';
-  $gambar = upload();
-
-  //sql insert
-  $query = "INSERT INTO pengaduan(tgl_pengaduan,nik,isi_laporan,foto,status) VALUES('$tanggal','$nik','$isi','$gambar','$status')";
-  // execute 
-  
-mysqli_query($conn,$query);
-
+  $gambar = upload(); // panggil fungsi upload()
+  mysqli_query($conn,"INSERT INTO pengaduan(tgl_pengaduan,nik,isi_laporan,foto,status) VALUES('$tanggal','$nik','$isi','$gambar','$status')"); // melakukan query insert ke database
+  echo "<script> 
+    alert('Data Pengaduan berhasil di kirim');
+  window.location.reload()
+  </script>";
+  // tampilakn alert dan reload halaman
 }
+
 function upload(){
-  // inisialisasi nilai
-  $namaFile = $_FILES['gambar']['name'];
-  $ukuranFile = $_FILES['gambar']['size'];
-  $error = $_FILES['gambar']['error'];
-  $tmpName = $_FILES['gambar']['tmp_name'];
- 
-  
-  // cek extensi file
+
+  // menginisialisasi file
+  $namaFile = $_FILES['gambar']['name']; // nama file
+  $ukuranFile = $_FILES['gambar']['size']; // ukuran
+  $error = $_FILES['gambar']['error']; // apakah gambar error
+  $tmpName = $_FILES['gambar']['tmp_name']; // temporary name/ nama sementara
+  // check eksetensi file yang diijinkan
   $exstensiGambarValid =['jpg','jpeg','png','JPG','JPEG','PNG'];
   $exstensiGambar =pathinfo($namaFile,PATHINFO_EXTENSION);
-  
-  //cek gambar atau bukan
+  //check jika bukan gambar / gambar tidak valid
   if(!in_array($exstensiGambar, $exstensiGambarValid)){
     echo "<script>
-      alert('upload not gambar');
+      alert('Harap mengupload Gambar, Bukan file lain');
     </script>";
-    // hentikan program
     return false;
   }
-
-  //cek ukuran file
+  // check ukuran file jika ukuran lebih dari 1000000mb
   if($ukuranFile > 1000000){
     echo "
     <script>
       alert('ukuran gambar terlalu besar');
     </script>
     ";
+    // munculkan alert
     return false;
   }
-
-  $namaFileBaru = uniqid();
-  $namaFileBaru .= '.';
-  $namaFileBaru .= $exstensiGambar;
-
-  //upload gambar
- move_uploaded_file($tmpName,'../../img/' . $namaFileBaru);
-  return $namaFileBaru;
+  // buat nama file baru dengan uniqid
+  $namaFileBaru = uniqid(); // uniqid digunakan untuk menghasilkan id berdasarkan waktu input user
+  $namaFileBaru .= '.';  // gambung / concat dengan . (titik )
+  $namaFileBaru .= $exstensiGambar; // gabung dengan ekstensi gambar
+  move_uploaded_file($tmpName,'../../img/' . $namaFileBaru);   // pindah file hasil input
+  return $namaFileBaru; // kembalikan nama file yang baru
 }

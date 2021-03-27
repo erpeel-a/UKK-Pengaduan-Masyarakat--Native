@@ -2,23 +2,14 @@
 session_start();
 require('../../function.php');
 $conn = DBConnection();
-  //simpan session username
-  $name = $_SESSION['username'];
-
-  //cek sesi
   if(!isset($_SESSION['login'])){
     header('location:login.php');
     exit;
-  }
-  //cek level 
+  } 
   if($_SESSION['level'] != 'admin'){
     header('location:login.php');
   }
-
-$query = "SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas";
-$execute = mysqli_query($conn,$query);
-$getdata = mysqli_fetch_All($execute,MYSQLI_ASSOC);
-// var_dump($getdata);
+$pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas")
 ?>
 <?php require('../layouts/header.php')  ?>
 <div class="container-fluid">
@@ -39,20 +30,17 @@ $getdata = mysqli_fetch_All($execute,MYSQLI_ASSOC);
                 <th>foto</th>
                 <th>tgl_tanggapan</th>
                 <th>Tanggapan</th>
-                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              <?php foreach($getdata as $data) : ?>
+              <?php foreach($pengaduan as $data) : ?>
               <tr>
                 <td><?= $data['isi_laporan'];?></td>
                 <td><?= $data['tanggapan'];?></td>
                 <td><img src="../../img/<?= $data['foto'] ;?>" width="200px" alt=""></td>
                 <td><?= $data['tgl_pengaduan'];?></td>
                 <td><?= $data['tanggapan'];?></td>
-                <td>  
-                  
-                </td>
+               
               </tr>
               <?php endforeach ;?>
             </tbody>

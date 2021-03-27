@@ -15,13 +15,15 @@
             <div class="row">
               <div class="col">
               <p>Info user login : <b><?= $_SESSION['username'];?></b></p>
-              
               <?php if($_SESSION['level'] === 'admin') {?>
-                <a href="registrasi.php" class="btn btn-primary">Registrasi User</a>
+                <a href="registrasi.php" class="btn btn-primary">Registrasi Petugas</a>
+                <a href="masyarakat.php" class="btn btn-primary">Data Masyarakat</a>
+                <a href="petugas.php" class="btn btn-primary">Data Petugas</a>
                 <a href="pengaduan.php" class="btn btn-primary">Data Pengaduan</a>
                 <a href="laporan.php" class="btn btn-primary">Cetak laporan </a>
               <?php }else{ ?>
-                <a href="petugas.php" class="btn btn-primary">Data Pengguna</a>
+                <a href="masyarakat.php" class="btn btn-primary">Data Masyarakat</a>
+                <a href="petugas.php" class="btn btn-primary">Data Petugas</a>
                 <a href="pengaduan.php" class="btn btn-primary">Data Pengaduan</a>
               <?php } ?>
                 <a href="../logout.php" class="btn btn-danger my-2">Logout</a>

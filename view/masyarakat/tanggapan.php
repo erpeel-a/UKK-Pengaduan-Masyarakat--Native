@@ -10,17 +10,14 @@ if($_SESSION['level'] != ''){
   header('location:login.php');
   exit;
 }
-
-$query = "SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas INNER JOIN masyarakat ON pengaduan.nik=masyarakat.nik";
-$execute = mysqli_query($conn,$query) or die(mysqli_error($conn));
-$FecthAllData = mysqli_fetch_All($execute,MYSQLI_ASSOC);
+$pengaduan = FetchAllData("SELECT * FROM tanggapan INNER JOIN pengaduan ON tanggapan.id_pengaduan=pengaduan.id_pengaduan INNER JOIN petugas ON petugas.id_petugas=tanggapan.id_petugas INNER JOIN masyarakat ON pengaduan.nik=masyarakat.nik");
 
 require('../layouts/header.php');
 ?>
 <div class="container-fluid ">
   <div class="row justify-content-center">
-    <main class="col-md-6">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <main class="col-md-10">
+      <div class="d-flex justify-content-between">
         <h1 class="h2">Daftar Pengaduan :</h1>
       </div>
       <div class="container col-md-12">
@@ -38,24 +35,21 @@ require('../layouts/header.php');
             </tr>
         </thead>
         <tbody >
-          <?php foreach($FecthAllData as $item) : 
-
+          <?php foreach($pengaduan as $item) : 
             $status = $item['status'];
             if($status == '0'){
-              $status = 'terkirim';
+              $status = 'Terkirim';
             }else if($status == 'proses'){
-              $status = 'diproses';
+              $status = 'Sedang Diproses';
             }else{
-              $status = 'diterima';
+              $status = 'Selesai';
             }
-
-            $site_url = 'http://localhost/UKK-Pengaduan-Masyarakat--Native/';
             ?>
           <tr>
             <td><?= $item['nama'];?></td>
             <td><?= $item['tgl_pengaduan'];?></td>
             <td><?= $item['isi_laporan'];?></td>
-            <td><img src="<?= $site_url ?>/img/<?= $item['foto'];?>"  width ="50px"alt=""></td>
+            <td><img src="<?= site_url ?>img/<?= $item['foto'];?>"  width ="50px"alt=""></td>
             <td><?= $item['tanggapan'];?></td>
             <td><?= $item['tgl_tanggapan'];?></td>
             <td><?= $item['nama_petugas'] ?></td>

@@ -2,27 +2,13 @@
 session_start();
 require '../../function.php';
 $conn = DBConnection();
-  //simpan session username
- $name = $_SESSION['username'];
-
-    //cek sesi
   if(!isset($_SESSION['login'])){
-
-
     header('location:../../index.php');
     exit;
   }
-  //id petugas
 $_idPetugas = $_SESSION['id_petugas'];
 $_idPengaduan = $_SESSION['idpengaduan'];
-// var_dump($idPetugas);
-
-// fech data pengadaun isi laporan
-$sql = "SELECT isi_laporan FROM pengaduan WHERE id_pengaduan=$_idPengaduan";
-$execute = mysqli_query($conn,$sql);
-$pengaduan = mysqli_fetch_assoc($execute);
-
-
+$pengaduan = FetchAllData("SELECT isi_laporan FROM pengaduan WHERE id_pengaduan=$_idPengaduan");
 if(isset($_POST['submit'])){
   $tanggal = $_POST['tanggal'];
   $tanggapan = $_POST['tanggapan'];
@@ -30,10 +16,9 @@ if(isset($_POST['submit'])){
   // insert ke table tanggapan
   $sql = "INSERT INTO tanggapan(id_pengaduan,tgl_tanggapan,tanggapan,id_petugas) VALUES('$_idPengaduan','$tanggal','$tanggapan','$_idPetugas')";
   $execute_add_tanggapan = mysqli_query($conn, $sql); 
+  // update status pengaduan
   $execute_update_pengaduan = mysqli_query($conn, "UPDATE pengaduan SET status ='selesai' WHERE id_pengaduan='$_idPengaduan'") or die(mysqli_error($conn));
-  // update status tzable pengaduan;
-  
-
+  // check if is_excetute
   if($execute_update_pengaduan && $execute_add_tanggapan){
     echo "<script>
     alert('Tanggapan Berhasil Dikkirim');
@@ -59,7 +44,7 @@ require('../layouts/header.php');
       <form action="" class="form " method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="judul_pengaduan">Isi Pengaduan</label>
-          <input type="text" readonly name="tanggal" class="form-control mb-3" value="<?= $pengaduan['isi_laporan'] ?>">
+          <input type="text" readonly name="tanggal" class="form-control mb-3" value="<?= $pengaduan[0]['isi_laporan'] ?>">
         </div>
         <div class="form-group">Tanggapan
           <label for="tanggapan"></label>

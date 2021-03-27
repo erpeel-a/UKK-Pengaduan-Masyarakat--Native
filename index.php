@@ -1,41 +1,23 @@
 <?php 
-// mulai sesi
 session_start();
-// hubungkan kehalam db koneksi;
 require('function.php');
-
 $conn = DBConnection();
-// tombol submit ditekan 
   if(isset($_POST['submit'])){
-    //dapatkan data dari inputan form 
     $username = $_POST['username'];
     $password = $_POST['password'];
-
-    //get data 
-    $acount = mysqli_query($conn,"SELECT * FROM masyarakat WHERE username = '$username'");
-
-    //cek username
-    if(mysqli_num_rows($acount) === 1){
-      $data = mysqli_fetch_assoc($acount);
+    $user = mysqli_query($conn,"SELECT * FROM masyarakat WHERE username = '$username'");
+    if(mysqli_num_rows($user) === 1){
+      $data = mysqli_fetch_assoc($user);
         if($password == $data['password']){
-
-          // create session
           $_SESSION['login'] = true;
           $_SESSION['nik'] = $data['nik'];
           $_SESSION['level'] ='';
           $_SESSION['username'] = $data['username'];  
-          //pindah halaman
           header('location:view/masyarakat/index.php');
-          // stop code
           exit;
         }
     }
-    // error
     $error = true;
-
-  }else if(isset($_POST['regist'])){
-    // kembali halaman registrasi
-     header('location:view/masyarakat/registrasi.php');
   }
 require('view/layouts/header.php')
 ?>

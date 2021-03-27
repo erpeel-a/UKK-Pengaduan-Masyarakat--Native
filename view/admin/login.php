@@ -9,7 +9,6 @@ $conn = DBConnection();
     if(mysqli_num_rows($check) === 1){
       $data = mysqli_fetch_assoc($check);
         if($password == $data['password']){
-          // create session
           $_SESSION['login'] =true;
           $_SESSION['username'] = $username;
           $_SESSION['password'] = $password;
