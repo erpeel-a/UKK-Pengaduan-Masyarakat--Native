@@ -1,7 +1,7 @@
 <?php
 session_start();
 require '../../function.php';
-$conn = DBConnection(); $name = $_SESSION['username'];
+$conn = DBConnection(); 
 if(!isset($_SESSION['login'])){
   header('location:../../index.php');
   exit;
