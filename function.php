@@ -14,10 +14,10 @@ function FetchAllData($query)
   $conn = DBConnection(); // memanggil fungsi DBConnection dan masukkan ke dalam variable $conn
   $query = mysqli_query($conn, $query); // masukkan variable $conn, dan paramenter $query ke dalam fungsi mysqli_query
   $rows = []; // menyiapkan varible bertipe array kosong
-  while ($row = mysqli_fetch_assoc($query)) { // looping hasil query dan di ubah menjadi array assosicative dan masukkan ke dalam folder row
+  while ($row = mysqli_fetch_assoc($query)) { // looping hasil query dan di ubah menjadi array assosicative dan masukkan ke dalam variable row
     $rows[] = $row; // masukkan data dari varible $row dan masukkan ke dalam varible $rows (yang berisi array kosong)
   }
-  return $rows; // kembalikan data yang sudah masuh ke variable $rows
+  return $rows; // kembalikan data yang sudah masuk ke variable $rows
 }
 
 function PetugasRegister($data){
@@ -48,7 +48,7 @@ function PetugasRegister($data){
   }
   // Insert ke dalam database
   $execute = mysqli_query($conn,"INSERT INTO petugas VALUES(null,'$namapetugas','$username','$password','$telp','$level')") or die(mysqli_error($conn));
-  return mysqli_affected_rows($conn);
+  return mysqli_affected_rows($conn); // mysqli_affected_rows berfungsi untuk mengecek apakah ada baris yang berubah di database
 
 }
 
@@ -72,7 +72,7 @@ function MasyarakatRegister($data){
     echo "<script> alert('Kombinasi password tidak sama, silahkan coba lagi')</script>";
   }
   $execute = mysqli_query($conn,"INSERT INTO masyarakat(nik,nama,username,password,telp) VALUES('$nik','$nama','$username','$password','$telephone')"); // melakukan query ke database
-  return mysqli_affected_rows($conn);
+  return mysqli_affected_rows($conn);// mysqli_affected_rows berfungsi untuk mengecek apakah ada baris yang berubah di database
 }
 
 
@@ -87,8 +87,7 @@ function InputPengaduan($nik,$data){
   $status = '0';
   $gambar = upload(); // panggil fungsi upload()
   mysqli_query($conn,"INSERT INTO pengaduan(tgl_pengaduan,nik,isi_laporan,foto,status) VALUES('$tanggal','$nik','$isi','$gambar','$status')"); // melakukan query insert ke database
-  return mysqli_affected_rows($conn);
-  // tampilakn alert dan reload halaman
+  return mysqli_affected_rows($conn);// mysqli_affected_rows berfungsi untuk mengecek apakah ada baris yang berubah di database
 }
 
 function upload(){
