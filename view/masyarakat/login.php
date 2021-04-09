@@ -34,7 +34,7 @@ $conn = DBConnection(); // memanggil fungsi DBConnection dari file function.php
   <div class="row justify-content-center">
     <div class="col-md-6">
       <?php if(isset($error)):?>
-      <div class="alert alert-danger">username atau password anda salah</div>
+      <div class="alert alert-danger">kesalahan dalam input Password, silahkan coba lagi</div>
       <?php endif ;?>
       <div class="card">
       <div class="card-header">

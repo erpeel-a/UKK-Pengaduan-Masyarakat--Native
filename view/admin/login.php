@@ -28,7 +28,7 @@ require('../layouts/header.php'); // menyisipkan file layout header
   <div class="row justify-content-center">
     <div class="col-md-6">
       <?php if(isset($error)):?>
-        <div class="alert alert-danger">kesalahan dalam input Password, silahkan cobalagi</div>
+        <div class="alert alert-danger">kesalahan dalam input Password, silahkan coba lagi</div>
       <?php endif ;?>
       <div class="card">
       <div class="card-header">
