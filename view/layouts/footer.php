@@ -1,9 +1,9 @@
-<footer>
-  <div class="container mt-5">
-    <div class="row my-5">
-      <div class="col-md-12 text-center text-muted">&copy; Sistem Pengaduan Masyarakat - UKK RPL - Team Dev XII RPL A</div>
+<div class="container my-5">
+  <div class="row">
+    <div class="col">
+      <p class="text-center text-muted">Copyright  <?= date('Y')  ?> &copy; RPLA Team Developer</p>
     </div>
-</footer>
+  </div>
 </div>
 </body>
 

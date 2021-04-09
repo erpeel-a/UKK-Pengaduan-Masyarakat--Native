@@ -1,55 +1,65 @@
 <?php
-require '../../function.php';
-$conn = DBConnection();
-if(isset($_POST['submit'])){
-  if(MasyarakatRegister($_POST) > 0 ){
-     echo "<script>alert('Registrasi berhasil, silahkan login')</script>";
+require '../../function.php'; // menyisipkan file function.php agar bisa digunakan function2nya
+$conn = DBConnection(); // panggil function DBConnection dan masukkan ke dalam vaiable $conn
+if(isset($_POST['submit'])){ // chek apakah form sudah di submit
+  if(MasyarakatRegister($_POST) > 0 ){ // masukkan data dari $_POST ke fungsi MasyarakatRegister (yang ada di file function) dan check jika data masuk / lebih dari 0
+    echo "<script>
+        alert('Registrasi berhasil');
+      </script>";
   }else{
-    echo mysqli_error($conn);
+    echo mysqli_error($conn); // jika error tampilkan error
   }
 }
-require('../layouts/header.php');
+require('../layouts/header.php'); // menyisipkan file header.php
 ?>
-<div class="container">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-md-10 mt-3">
+    <div class="col-md-10">
       <div class="card">
-        <div class="card-header">Registrasi Masyarakat</div>
+        <div class="card-header">
+          Registrasi Masyarakat
+        </div>
         <div class="card-body">
-          <form class="form-group" method="post" action="">
+          <form method="post" action="">
             <div class="form-group">
-              <label for="nama" class="sr-only">nama</label>
-              <input type="text" id="nama" class="form-control" placeholder="nama" name="nama" required autofocus>
+              <label for="nama">nama</label>
+              <input type="text" id="nama" class="form-control" placeholder="nama" name="nama" required autofocus> 
             </div>
             <div class="form-group">
-              <label for="username" class="sr-only">username</label>
+              <label for="username">username</label>
               <input type="text" id="username" class="form-control" placeholder="username." required name="username"
-                autofocus>
+                autofocus> 
             </div>
             <div class="form-group">
-              <label for="nik" class="sr-only">nik</label>
-              <input type="number" id="nama" class="form-control" placeholder="NIK" name="nik" required autofocus>
+
+              <label for="nik">nik</label>
+              <input type="number" id="nama" class="form-control" placeholder="xxxxx" name="nik" required autofocus>
+            </div>
             <div class="form-group">
-              <label for="telephone" class="sr-only">telp</label>
+              <label for="telephone">telp</label>
               <input type="number" id="telephone" class="form-control" placeholder="08xxxxxxx" required name="telephone"
                 autofocus>
             </div>
             <div class="form-group">
-              <label for="inputPassword" class="sr-only">Password</label>
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password"
-                required>
             </div>
             <div class="form-group">
-              <label for="inputPassword" class="sr-only">Password</label>
-              <input type="password" id="inputPassword agin" class="form-control" placeholder="konfirmasi_password"
+              <label for="inputPassword">Password</label>
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password"
+                required>
+              <label for="inputPassword">Password</label>
+              <input type="password" id="inputPassword agin" class="form-control" placeholder="Password"
                 name="konfirmasi_password" required>
             </div>
-            <button class="btn  btn-primary" type="submit" name="submit">Registrasi</button>
-            <a href="<?= site_url ?>" class="btn btn-danger float-right">Sudah punya akun</a>
+
+
+            <button type="submit" name="submit" class="btn btn-primary">Registrasi</button>
+            <a href="<?= site_url ?>/index.php" class="btn btn-danger">kembali</a>
           </form>
         </div>
       </div>
+
     </div>
   </div>
 </div>
-<?php require('../layouts/footer.php'); ?>
+
+<?php require('../layouts/footer.php'); // menyisipkan file footer.php ?>

@@ -1,30 +1,34 @@
 <?php
-session_start();
-require '../../function.php';
-$conn = DBConnection();
-  if(!isset($_SESSION['login'])){
-    header('location:../../index.php');
-    exit;
-  }
-$_idPetugas = $_SESSION['id_petugas'];
-$_idPengaduan = $_SESSION['idpengaduan'];
-$pengaduan = FetchAllData("SELECT isi_laporan FROM pengaduan WHERE id_pengaduan=$_idPengaduan");
-if(isset($_POST['submit'])){
+session_start(); // mulai session
+require '../../function.php'; // menyisipkan file function.php agar bisa di pakai function2 yang ada didalamnya
+$conn = DBConnection(); // panggil functio DBConnection dan masukkan ke dalam variable
+ isLogin();// panggil fungsi isLogin yang ada di file functions.php
+ isPetugas();
+$_idPetugas = $_SESSION['id_petugas']; // tangkap id_petugas dari session sudah ditambahakn/diset sebelumnya
+$_idPengaduan = $_SESSION['idpengaduan']; // tangkap id_pengaduan dari session sudah ditambahakn/diset sebelumnya
+
+$pengaduan = FetchAllData("SELECT * FROM pengaduan WHERE id_pengaduan='$_idPengaduan'"); // fungsi untuk mengambil data dari query yang dikirimkan
+
+
+if(isset($_POST['submit'])){ // check jika tombol di submit
+  // siapkan datanya
   $tanggal = $_POST['tanggal'];
   $tanggapan = $_POST['tanggapan'];
   $tanggal = date('Y-m-d');
   // insert ke table tanggapan
   $sql = "INSERT INTO tanggapan(id_pengaduan,tgl_tanggapan,tanggapan,id_petugas) VALUES('$_idPengaduan','$tanggal','$tanggapan','$_idPetugas')";
   $execute_add_tanggapan = mysqli_query($conn, $sql); 
-  // update status pengaduan
+  // ubah status pengaduan menjadi selesai
   $execute_update_pengaduan = mysqli_query($conn, "UPDATE pengaduan SET status ='selesai' WHERE id_pengaduan='$_idPengaduan'") or die(mysqli_error($conn));
-  // check if is_excetute
+  // cek jika kudua aksi tersebut berhasil 
   if($execute_update_pengaduan && $execute_add_tanggapan){
     echo "<script>
-    alert('Tanggapan Berhasil Dikkirim');
+    alert('Tanggapan Berhasil Dikirim');
         window.location.href = 'pengaduan.php'
     </script>";
+    //tampilkan alert dan redirect ke halaman pengaduan.php
   }else{
+     //jika salah maka muncul kan alert
     echo "
     <script>
      alert('tanggapan gagal dikirim');
@@ -32,30 +36,36 @@ if(isset($_POST['submit'])){
     ";
   }
 }
-require('../layouts/header.php');
+require('../layouts/header.php'); //menyisipkan file layout header
 ?>
-<div class="container">
-  <div class="row">
-    <div class="col-md-10 mt-5">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
       <div class="card">
-        <div class="card-header">Tulis Tanggapan</div>
+        <div class="card-header">
+          <h2 class="text-center">Tulis Tanggapan</h2>
+        </div>
         <div class="card-body">
-          <form action="" class="form " method="post" enctype="multipart/form-data">
-            <div class="form-group">
+          <form action="" method="post" enctype="multipart/form-data">
+            <div>
               <label for="judul_pengaduan">Isi Pengaduan</label>
-              <input type="text" readonly name="tanggal" class="form-control mb-3"
-                value="<?= $pengaduan[0]['isi_laporan'] ?>">
+              <!-- mengambil isi index pertama dari query SELECT * FROM pengaduan WHERE id_pengaduan='$_idPengaduan -->
+              <input type="text" readonly  class="form-control" name="tanggal" value="<?= $pengaduan[0]['isi_laporan'] ?>">
             </div>
-            <div class="form-group">Tanggapan
+            <div>Tanggapan
               <label for="tanggapan"></label>
-              <textarea name="tanggapan" id="" cols="30" rows="10" class="form-control"></textarea>
+              <textarea name="tanggapan" id="" class="form-control" cols="30" rows="10"></textarea>
             </div>
+            <div class="my-2">
             <button type="submit" name="submit" class="btn btn-primary">Kirim Tanggapan</button>
             <a href="index.php" class="btn btn-danger">Kembali</a>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- menyisipkan file layout header -->
 <?php require('../layouts/footer.php'); ?>
