@@ -50,8 +50,6 @@ require('../layouts/header.php'); // menyisipkan file header.php
               <input type="password" id="inputPassword agin" class="form-control" placeholder="Password"
                 name="konfirmasi_password" required>
             </div>
-
-
             <button type="submit" name="submit" class="btn btn-primary">Registrasi</button>
             <a href="<?= site_url ?>/index.php" class="btn btn-danger">kembali</a>
           </form>

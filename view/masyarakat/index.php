@@ -3,6 +3,7 @@ session_start();
 require '../../function.php'; //menyisipkan file function
 require('../layouts/header.php'); // menyisipkan file layuot header.php
 isLogin();
+isMasyarakat();
 ?>
 <div class="container mt-5">
   <div class="row justify-content-center">

@@ -31,6 +31,15 @@ function isRoleAdmin()
     exit;
   }
 }
+// function untuk mengecek jika admin iseng masuk ke masyarakat
+function isMasyarakat()
+{
+  if($_SESSION['level'] !== 'masyarakat'){ // cek jika user belum login
+    header('location:../logout.php');
+    exit;
+  }
+}
+
 
 
 // fungsi yang digunakan  untuk menampikan data sesuai query yang dikirim kan sebagai parameter

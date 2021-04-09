@@ -9,17 +9,16 @@ $conn = DBConnection(); // memanggil fungsi DBConnection dari file function.php
     $username = $_POST['username'];
     $password = $_POST['password'];
     // query ke database
-    $check = mysqli_query($conn,"SELECT * FROM masyarakat WHERE username = '$username'");
+    $check = mysqli_query($conn,"SELECT * FROM masyarakat WHERE username = '$username'") or die (mysqli_error($conn));
     //cek username
-    if(mysqli_num_rows($check) === 1){ // check jika dalam query ada satu data yang ditemukan
-      $data = mysqli_fetch_assoc($check); // ubah menjadi array assosiatif
+    if(mysqli_num_rows($check) === 1){ 
+      $data = mysqli_fetch_assoc($check);
         if($password == $data['password']){
           // create session
           $_SESSION['login'] = true;
           $_SESSION['nik'] = $data['nik'];
           $_SESSION['username'] = $data['username'];  
-          $_SESSION['username'] ='masyarakat';  
-          // redirect ke halaman masyarakat index
+          $_SESSION['level'] ='masyarakat';  
           header('location:index.php');
           exit;
         }

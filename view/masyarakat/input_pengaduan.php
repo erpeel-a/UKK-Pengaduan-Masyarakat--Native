@@ -3,6 +3,7 @@
 session_start(); // mulai session
 require('../../function.php'); // menyisipkan file funtion.php agar bisa digunakan fungsi2 yang ada di dalamnya
 isLogin();
+isMasyarakat();
 if(isset($_POST['submit'])){ // check jika form sudah disubmit
   $nik = $_SESSION['nik']; // tanggap nik dari session dan masukkan ke variable $nik
   InputPengaduan($nik,$_POST); // jalankan fungsi InputPengaduan yang ada di file function.php dengan mengirimkan nik dan $_POST sebagai parameter 
