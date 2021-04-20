@@ -53,7 +53,7 @@ if(isset($_POST['verify'])){ // check jika tombol verify sudah di submit
                     <div><?= $status ;?></div>
                   </td>
                   <td>
-                    <?php if($status !== 'selesai') {?>
+                    <?php if($data['status'] !== 'selesai') {?>
                     <form action="" method="post">
                       <button value="<?= $data['id_pengaduan'] ;?>" type="submit" "
                     name=" verify" class="btn btn-sm btn-info">Verifikasi Data</button>
